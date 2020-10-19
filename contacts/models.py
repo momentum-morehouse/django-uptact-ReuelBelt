@@ -14,8 +14,15 @@ class Contact(models.Model):
                                     validators=[phone_regex],
                                     null=True,
                                     blank=True)
+    birthday = models.DateField(null=True, blank=True)
     address_1 = models.CharField(max_length=255, null=True, blank=True)
     address_2 = models.CharField(max_length=255, null=True, blank=True)
     city = models.CharField(max_length=255, null=True, blank=True)
     state = USStateField(null=True, blank=True)
     zip_code = USZipCodeField(null=True, blank=True)
+
+class Note(models.Model):
+    date = models.DateTimeField(auto_now_add=True)
+    text = models.TextField()
+    contact = models.ForeignKey(Contact, blank=True, null=True, on_delete=models.CASCADE,)
+    
